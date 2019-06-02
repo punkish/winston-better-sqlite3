@@ -1,0 +1,28 @@
+{
+  "name": "winston-better-sqlite3",
+  "version": "1.0.0",
+  "description": "a better Sqlite3 transport for Winston",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/punkish/winston-better-sqlite3.git"
+  },
+  "keywords": [
+    "winston",
+    "sqlite3",
+    "better-sqlite3"
+  ],
+  "author": "Puneet Kishor",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/punkish/winston-better-sqlite3/issues"
+  },
+  "homepage": "https://github.com/punkish/winston-better-sqlite3#readme",
+  "dependencies": {
+    "better-sqlite3": "^5.4.0",
+    "winston-transport": "^4.3.0"
+  }
+}
