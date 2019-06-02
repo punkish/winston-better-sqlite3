@@ -8,7 +8,6 @@ module.exports = class Sqlite3 extends Transport {
     constructor(options) {
         super(options);
         
-        //this.name = 'sqlite';
         if (!options.hasOwnProperty('db')) {
             throw new Error('"db" is required');
         }
@@ -17,11 +16,8 @@ module.exports = class Sqlite3 extends Transport {
         }
         
         this.params = options.params || ['level', 'message'];
-
-        this.columnsInsert = this.params.map(el => { return el });
-        this.columnsBind = this.columnsInsert.map(el => { return '?' });
-        this.insertStmt = `INSERT INTO log (${this.columnsInsert.join(', ')}) VALUES (${this.columnsBind.join(', ')})`;
-
+        this.insertStmt = `INSERT INTO log (${this.params.join(', ')}) VALUES (${this.params.map(e => '?').join(', ')})`;
+        
         this.columnsTyped = this.params.map(p => { return p + ' TEXT'});
         this.columnsTyped.unshift("id INTEGER PRIMARY KEY", "timestamp INTEGER DEFAULT (strftime('%s','now'))");
         this.table = `CREATE TABLE IF NOT EXISTS log (${this.columnsTyped.join(', ')})`;
@@ -31,8 +27,13 @@ module.exports = class Sqlite3 extends Transport {
     }
 
     log(info, callback) {
-        const params = Object.values(info);
+        const logparams = Object.values(info);
 
+        let params = [];
+        this.params.forEach(el => {
+            params.push(logparams[ el ]);
+        });
+        
         setImmediate(() => {
             this.emit('logged', info);
         });
