@@ -34,7 +34,7 @@ module.exports = class Sqlite3 extends Transport {
         const params = Object.values(info);
 
         setImmediate(() => {
-            this.emit('logged', debug);
+            this.emit('logged', info);
         });
 
         this.insert.run(params);
