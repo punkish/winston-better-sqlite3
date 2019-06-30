@@ -1,7 +1,7 @@
 # winston-better-sqlite3  
 *aka wbs*
 
-`sqite3` Transport for [Winson](https://zenodo.org)
+`sqite3` Transport for [Winson](https://github.com/winstonjs/winston)
 
 ## Install
 
