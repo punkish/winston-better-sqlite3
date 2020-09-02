@@ -3,8 +3,9 @@
   "version": "1.0.2",
   "description": "a better Sqlite3 transport for Winston",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "types": "./node_modules/dts-gen/bin/lib/run.js --expression-file './index.js' -o -f './index.d.ts'"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,8 @@
   "dependencies": {
     "better-sqlite3": "^5.4.0",
     "winston-transport": "^4.3.0"
+  },
+  "devDependencies": {
+    "dts-gen": "^0.6.0"
   }
 }
