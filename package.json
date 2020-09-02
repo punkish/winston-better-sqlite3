@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/punkish/winston-better-sqlite3#readme",
   "dependencies": {
-    "better-sqlite3": "^5.4.0",
+    "better-sqlite3": "^7.1.0",
     "winston-transport": "^4.3.0"
   },
   "devDependencies": {
