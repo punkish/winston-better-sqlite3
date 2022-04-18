@@ -3,8 +3,9 @@
   "version": "1.0.3",
   "description": "a better Sqlite3 transport for Winston",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "types": "./node_modules/dts-gen/bin/lib/run.js --expression-file './index.js' -o -f './index.d.ts'"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,10 @@
   },
   "homepage": "https://github.com/punkish/winston-better-sqlite3#readme",
   "dependencies": {
-    "better-sqlite3": "^7.5.1",
-    "winston-transport": "^4.5.0"
+    "better-sqlite3": "^7.1.0",
+    "winston-transport": "^4.3.0"
+  },
+  "devDependencies": {
+    "dts-gen": "^0.6.0"
   }
 }
