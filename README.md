@@ -15,7 +15,7 @@ const winston = require('winston');
 
 const wbs = require('winston-better-sqlite3');
 const logger = winston.createLogger({
-    level: 'debug',
+    level: 'info',
     format: winston.format.json(),
     transports: [
         new wbs({
@@ -51,11 +51,28 @@ CREATE TABLE IF NOT EXISTS log (
 Later on, in your program where you want to log something
 
 ```js
+// the following two messages will be logged
 logger.log({
     level: 'info',
     resource: 'collaborators',
     query: 'q=punkish',
     message: 'searching for folks'
+});
+
+logger.log({
+    level: 'error',
+    resource: 'collaboratoradoras',
+    query: 'q=normal',
+    message: 'searching for state'
+});
+
+// the following message will not be logged because 
+// its level is less important than the log level
+logger.log({
+    level: 'verbose',
+    resource: 'funding',
+    query: 'q=normal&something',
+    message: 'searching for habbine'
 });
 ```
 
