@@ -28,6 +28,7 @@ module.exports = class Sqlite3 extends Transport {
 
     log(info, callback) {
         const logparams = Object.values(info);
+        //console.log(logparams)
 
         let params = [];
         this.params.forEach(el => {
