@@ -27,8 +27,8 @@ module.exports = class Sqlite3 extends Transport {
     }
 
     log(info, callback) {
-        const logparams = Object.values(info);
-        //console.log(logparams)
+        const logparams = Object.assign({}, info);
+
 
         let params = [];
         this.params.forEach(el => {
@@ -44,5 +44,4 @@ module.exports = class Sqlite3 extends Transport {
         // Perform the writing to the remote service
         callback();
     }
-
 };
