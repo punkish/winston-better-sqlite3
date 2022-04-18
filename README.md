@@ -17,7 +17,6 @@ const wbs = require('winston-better-sqlite3');
 const logger = winston.createLogger({
     level: 'debug',
     format: winston.format.json(),
-    defaultMeta: { resource: 'renew' },
     transports: [
         new wbs({
 

@@ -1,6 +1,6 @@
 {
   "name": "winston-better-sqlite3",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a better Sqlite3 transport for Winston",
   "main": "index.js",
   "types": "index.d.ts",

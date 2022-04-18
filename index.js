@@ -11,37 +11,32 @@ module.exports = class Sqlite3 extends Transport {
         if (!options.hasOwnProperty('db')) {
             throw new Error('"db" is required');
         }
-        else {
-            this.db = new Database(options.db);
-        }
         
+        this.db = new Database(options.db);
         this.params = options.params || ['level', 'message'];
-        this.tablename = options.table || 'log';
-
-        this.insertStmt = `INSERT INTO ` + this.tablename + ` (${this.params.join(', ')}) VALUES (${this.params.map(e => '?').join(', ')})`;
+        const table = options.table || 'log';
         
-        this.columnsTyped = this.params.map(p => { return p + ' TEXT'});
-        this.columnsTyped.unshift("id INTEGER PRIMARY KEY", "timestamp INTEGER DEFAULT (strftime('%s','now'))");
-        this.table = `CREATE TABLE IF NOT EXISTS ` + this.tablename + ` (${this.columnsTyped.join(', ')})`;
+        // the 'log' table always has 'id' and 'timestamp'
+        const cols = [
+            "id INTEGER PRIMARY KEY", 
+            "timestamp INTEGER DEFAULT (strftime('%s','now'))"
+        ];
+        
+        // add user-provided columns to the table and create the table
+        this.params.forEach(p => cols.push(`${p} TEXT`));
+        this.db.prepare(`CREATE TABLE IF NOT EXISTS ${table} (${cols.join(', ')})`).run();
 
-        this.db.prepare(this.table).run();
-        this.insert = this.db.prepare(this.insertStmt);
+        // prepare the insert statement to be used while logging
+        this.insert = this.db.prepare(`INSERT INTO ${table} (${this.params.join(', ')}) VALUES (${this.params.map(p => `@${p}`).join(', ')})`);
     }
 
     log(info, callback) {
         const logparams = Object.assign({}, info);
 
-        const params = [];
-        this.params.forEach(el => {
-            params.push(logparams[ el ]);
-        });
-        
-        setImmediate(() => {
-            this.emit('logged', info);
-        });
+        setImmediate(() => this.emit('logged', info));
 
         // Perform the writing to the remote service
-        this.insert.run(params);
+        this.insert.run(logparams);
 
         callback();
     }
